@@ -74,7 +74,7 @@ def flask_post_json():
 @app.route("/")
 def hello():
     '''Return something coherent here.. perhaps redirect to /static/index.html '''
-    return None
+    return open("static/index.html", 'r').read(), 200
 
 @app.route("/entity/<entity>", methods=['POST','PUT'])
 def update(entity):
@@ -84,7 +84,7 @@ def update(entity):
 @app.route("/world", methods=['POST','GET'])    
 def world():
     '''you should probably return the world here'''
-    return None
+    return json.dumps(myWorld.world()), 200
 
 @app.route("/entity/<entity>")    
 def get_entity(entity):
