@@ -278,6 +278,13 @@ mouse.mousedraggers.push(function(x,y,clicked,e) {
 
 function update() {
     //XXX: TODO Get the world from the webservice using a XMLHTTPRequest
+    var url = "http://127.0.0.1:5000/world";
+    var objects =  {"method": "GET", "send": ""};
+    var callback = function(data) {
+        world = JSON.parse(data);
+    };
+    sendJSONXMLHTTPRequest(url, objects, callback);
+    drawNextFrame();
     drawFrame();
 }
 
