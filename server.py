@@ -48,7 +48,7 @@ class World:
             self.space[entity] = data
             self.queue.append(entity)
 
-        if (len(self.queue) >= 101):
+        if (len(self.queue) >= 100):
             entity = self.queue.pop(0)
             self.space.pop(entity, [])
 
