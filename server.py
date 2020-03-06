@@ -36,6 +36,7 @@ app.debug = True
 class World:
     def __init__(self):
         self.clear()
+        self.queue = []
         
     def update(self, entity, key, value):
         entry = self.space.get(entity,dict())
@@ -45,6 +46,11 @@ class World:
     def set(self, entity, data):
         if (("x" in data) and ("y" in data)):
             self.space[entity] = data
+            self.queue.append(entity)
+
+        if (len(self.queue) >= 100):
+            entity = self.queue.pop(0)
+            self.space.pop(entity, [])
 
     def clear(self):
         self.space = dict()
@@ -80,7 +86,17 @@ def hello():
         html = file.read()
         file.close()
     except:
-        html = ''
+        return '', 404
+    return html, 200
+
+@app.route("/json2.js")
+def hi():
+    try:
+        file = open("static/json2.js", 'r')
+        html = file.read()
+        file.close()
+    except:
+        return '', 404
     return html, 200
 
 @app.route("/entity/<entity>", methods=['POST','PUT'])
